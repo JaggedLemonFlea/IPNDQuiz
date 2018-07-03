@@ -1,4 +1,5 @@
-# Steve Brylka IPND Stage 2 Final Project
+# Steve Brylka IPND Lesson 3 Final Project
+# Code Your Own Quiz
 
 # function to clear the terminal window -------------------------------------------------------------------------------
 def clearScreen():
