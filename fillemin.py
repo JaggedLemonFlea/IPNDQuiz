@@ -99,8 +99,7 @@ def fillBlanks(index, gameText, userInput):
     replaced = " ".join(replaced)
     return replaced
 
-
-# function that plays the game ----------------------------------------------------------------------------------------
+# working function that plays the game, but doesn't replace blanks ----------------------------------------------------
 # def playGame():
 	# level, attemptsLeft, index = setLevel(), 5, 0
 	# gameText, gameAnswers = setGameData(level)[0], setGameData(level)[1]
