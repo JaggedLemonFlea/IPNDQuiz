@@ -79,20 +79,20 @@ def setGameData(level):
 	return gameData
 
 # function that pulls the blanks from the game text -------------------------------------------------------------------
-def findBlanks(index, word, gameText):
-	for word in gameText:
-		if word == gameBlanks[index]:
-			return word
+def findBlanks(word, gameBlanks):
+	for pos in gameBlanks:
+		if pos in word:
+			return pos
 		else:
 			return None
 
 # function to replace blanks with the correct answer ------------------------------------------------------------------
-def fillBlanks(index, gameText, userInput):
+def fillBlanks(gameText, userInput, gameBlanks):
     replaced = []
     text = gameText.split()
     for word in text:
-        replacement = findBlanks(index, word, gameText)
-        if replacement == gameBlanks[index]:
+        replacement = findBlanks(word, gameBlanks)
+        if replacement != None:
             word = word.replace(replacement, userInput)
             replaced.append(word)
         else:
@@ -133,7 +133,7 @@ def playGame():
 			userInput = raw_input("\nPlease type you answer for " + gameBlanks[index] + ": ").lower()
 			if userInput == gameAnswers[index].lower():
 				print "\nThat's right!"
-				gameText = fillBlanks(index, gameText, userInput)
+				gameText = fillBlanks(gameText, userInput, gameBlanks)
 				index += 1
 			else:
 				print "\nSorry " + name + ", that is incorrect, please try again."
