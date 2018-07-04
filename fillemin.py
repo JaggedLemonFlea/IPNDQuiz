@@ -13,7 +13,7 @@ def clearScreen():
 	else:
 		print('\n' * 30)
 
-# Clears the screen and asks user for their name and say hello --------------------------------------------------------
+# Clears the screen at the start of the quiz to get rid of all the mess -----------------------------------------------
 clearScreen()
 
 # Game Data -----------------------------------------------------------------------------------------------------------
