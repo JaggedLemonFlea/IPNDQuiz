@@ -57,7 +57,6 @@ def timeDelay():
 	delay = 1
 	count = 1
 	while count > 0:
-		# print count
 		time.sleep(delay)
 		count = count -1
 	clearScreen()
@@ -78,7 +77,7 @@ def setLevel():
 			clearScreen()
 			print gameTitle + '\nSorry ' + name + ', that is not a valid entry, please try again.\n'
 
-# function that pulls game level data ---------------------------------------------------------------------------------
+# takes one input to determine what level to set the gameData variables to based on user input ------------------------
 def setGameData(level):
 	if level == 'easy':
 		gameData = [easyText, easyAnswers, easyBlanks]
@@ -89,7 +88,18 @@ def setGameData(level):
 		gameData = [hardText, hardAnswers, hardBlanks]
 	return gameData
 
-# working function that plays the game, but doesn't replace blanks ----------------------------------------------------
+# takes 3 inputs and diplays the text when the player wins ------------------------------------------------------------
+def playerWon(attemptsLeft, gameText):
+	clearScreen()
+	print gameTitle + "\nWay to go " + name + ", you finished the quiz with " + str(attemptsLeft) + " attempts left!!!\n\n" + gameText + "\n"
+
+# takes 3 inputs and displays the text when the player looses ---------------------------------------------------------
+def playerLost(level, attemptsLeft, gameText):
+	clearScreen()
+	print gameTitle + "\nThis is the " + level + " quiz. You have " + str(attemptsLeft) + " guesses left for this quiz.\n\n" + gameText + '\n\nSorry ' + name + ', you answered incorrectly too many times. Game Over!'
+
+# main game function takes user input and checks if it's a valid answer and replaces the blank with answer
+# from the gameAnswer list until the player successfully fills in the blanks, or fails the quiz -----------------------
 def playGame():
 	level, attemptsLeft, index = setLevel(), 5, 0
 	gameText, gameAnswers, gameBlanks = setGameData(level)[0], setGameData(level)[1], setGameData(level)[2]
@@ -100,17 +110,14 @@ def playGame():
 			userInput = raw_input("\nPlease type you answer for " + gameBlanks[index] + ": ").lower()
 			if userInput == gameAnswers[index].lower():
 				print "\nThat's right!"
-				gameText = gameText.replace(gameBlanks[index], gameAnswers[index])
-				index += 1
+				gameText, index = gameText.replace(gameBlanks[index], gameAnswers[index]), index + 1
 			else:
 				print "\nSorry " + name + ", that is incorrect, please try again."
-				attemptsLeft = attemptsLeft - 1
+				attemptsLeft -= 1
 		else:
-			clearScreen()
-			print gameTitle + "\nWay to go " + name + ", you finished the quiz with " + str(attemptsLeft) + " attempts left!!!\n\n" + gameText + "\n"
+			playerWon(attemptsLeft, gameText)
 			return
-	clearScreen()
-	print gameTitle + "\nThis is the " + level + " quiz. You have " + str(attemptsLeft) + " guesses left for this quiz.\n\n" + gameText + '\n\nSorry ' + name + ', you answered incorrectly too many times. Game Over!'
+	playerLost(level, attemptsLeft, gameText)
 
 # Starts the Game -----------------------------------------------------------------------------------------------------
 playGame()
